@@ -2,7 +2,7 @@ def compute_precision(real, predicted):
     """
     :param real: Vector of the real label.
     :param predicted: Vector of the predicted label.
-    :return: precision value.
+    :return: Precision value.
     """
     tp, fp = 0, 0
     for x, y in zip(real, predicted):
@@ -17,7 +17,7 @@ def compute_recall(real, predicted):
     """
     :param real: Vector of the real label.
     :param predicted: Vector of the predicted label.
-    :return: recall value.
+    :return: Recall value.
     """
     tp, fn = 0, 0
     for x, y in zip(real, predicted):
@@ -32,6 +32,6 @@ def compute_accuracy(real, predicted):
     """
     :param real: Vector of the real label.
     :param predicted: Vector of the predicted label.
-    :return: accuracy value.
+    :return: Accuracy value.
     """
     return sum([x == y for x, y in zip(real, predicted)]) / len(real)

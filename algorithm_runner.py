@@ -3,12 +3,13 @@ from computes import *
 
 
 class AlgorithmRunner:
-    """
-    Runs the specified algorithm and calculates scores.
-    Methods: fit, predict, run.
-    """
 
     def __init__(self, algorithm, k=10):
+        """
+        Runs the specified algorithm on processed data and calculates scores.
+        :param algorithm: String represent algorithm to use: 'KNN' or 'Rocchio'
+        :param k: Optional - initializes 'KNN' algorithm number of neighbors (default = 10).
+        """
         self._name = algorithm
         if algorithm == "KNN":
             self.algorithm = neighbors.KNeighborsClassifier(n_neighbors=k)
@@ -23,8 +24,8 @@ class AlgorithmRunner:
     def fit(self, x_train, y_train):
         """
         Fits the data by using the built in algorithm fit method.
-        :param x_train: data for training.
-        :param y_train: labels for training.
+        :param x_train: Data for training.
+        :param y_train: Labels for training.
         """
         self.algorithm.fit(x_train, y_train)
 
@@ -38,8 +39,8 @@ class AlgorithmRunner:
     def run(self, data, algorithm, print_data=True):
         """
         Runs the classifier and computes the precision, recall and accuracy.
-        :param data: The object of Data class.
-        :param algorithm: The object of AlgorithmRunner class.
+        :param data: Object of Data class.
+        :param algorithm: Object of AlgorithmRunner class.
         :param print_data: Boolean flag that prints the data.
         """
         kfolds = data.split_to_k_folds()

@@ -11,12 +11,12 @@ NUMERICAL_FEATURES = ["actor_1_facebook_likes", "actor_2_facebook_likes", "actor
 
 
 class Data:
-    """
-    Data class to handle csv files and pre processing data.
-    Methods: preprocess, split_to_k_folds
-    """
 
     def __init__(self, path):
+        """
+        Data class to handle csv files and pre processing the data.
+        :param path: Path to csv file.
+        """
         self._data = pd.read_csv(path)
         self.scores = None  # binary data labels
         self.p_data = None  # processed data without labels
@@ -24,6 +24,7 @@ class Data:
     def preprocess(self, threshold=7):
         """
         Preprocess the data including: converts categorial to dummies , normalizing and creates data labels.
+        :param threshold: Parameter for score binarization.
         """
         # removes unwanted features , drops lines with empty data , removes duplicated "movie title" rows.
         self._data = self._data.drop(columns=UNWANTED_FEATURES).dropna(axis='rows').drop_duplicates(
@@ -60,8 +61,9 @@ class Data:
 
     def split_to_k_folds(self, k=5):
         """
-        Splits the data to a given K folds (default k=5).
-        :return: k folds of data.
+        Splits the data to a given K folds.
+        :param k: Number of splits to initialize KFold
+        :return: K folds of data (default k=5).
         """
         kf = model_selection.KFold(n_splits=k, shuffle=False, random_state=None)
         return kf.split(self.p_data)
