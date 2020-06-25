@@ -14,7 +14,7 @@ class Data:
 
     def __init__(self, path):
         """
-        Data class to handle csv files and pre processing the data.
+        Data class to handle csv files and pre process the data.
         :param path: Path to csv file.
         """
         self._data = pd.read_csv(path)
