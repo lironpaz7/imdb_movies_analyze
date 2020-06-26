@@ -45,10 +45,10 @@ class AlgorithmRunnerRace:
         kfolds = data.split_to_k_folds()
         folds = 0
         for train_index, test_index in kfolds:
-            X_train, X_test = data.p_data[train_index], data.p_data[test_index]
+            x_train, x_test = data.p_data[train_index], data.p_data[test_index]
             y_train, real = data.scores[train_index], data.scores[test_index]
-            algorithm.fit(X_train, y_train)
-            predicted = algorithm.predict(X_test)
+            algorithm.fit(x_train, y_train)
+            predicted = algorithm.predict(x_test)
             self._accuracy += compute_accuracy(real, predicted)
             folds += 1
         self._accuracy /= folds
