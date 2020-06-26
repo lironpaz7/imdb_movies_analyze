@@ -31,6 +31,7 @@ class AlgorithmRunner:
 
     def predict(self, x_test):
         """
+        Predicts data labels by using built in algorithm predict method.
         :param x_test: Data for testing.
         :return: Predicted vector.
         """
