@@ -4,13 +4,14 @@ from computes import *
 
 class AlgorithmRunner:
 
-    def __init__(self, algorithm, k=10):
+    def __init__(self, data, algorithm, k=10):
         """
         Runs the specified algorithm on processed data and calculates scores.
         :param algorithm: String represent algorithm to use: 'KNN' or 'Rocchio'
         :param k: Optional - initializes 'KNN' algorithm number of neighbors (default = 10).
         """
         self._name = algorithm
+        self._data = data
         if algorithm == "KNN":
             self.algorithm = neighbors.KNeighborsClassifier(n_neighbors=k)
         elif algorithm == "Rocchio":
@@ -23,7 +24,7 @@ class AlgorithmRunner:
 
     def fit(self, x_train, y_train):
         """
-        Fits the data by using the built in algorithm fit method.
+        Wrapper method, fits the data by using the built in algorithm fit method.
         :param x_train: Data for training.
         :param y_train: Labels for training.
         """
@@ -31,26 +32,26 @@ class AlgorithmRunner:
 
     def predict(self, x_test):
         """
-        Predicts data labels by using built in algorithm predict method.
+        Wrapper method, predicts data labels by using built in algorithm predict method.
         :param x_test: Data for testing.
         :return: Predicted vector.
         """
         return self.algorithm.predict(x_test)
 
-    def run(self, data, algorithm, print_data=True):
+    def run(self, print_data=True):
         """
         Runs the classifier and computes the precision, recall and accuracy.
         :param data: Object of Data class.
         :param algorithm: Object of AlgorithmRunner class.
         :param print_data: Boolean flag that prints the data.
         """
-        kfolds = data.split_to_k_folds()
+        kfolds = self._data.split_to_k_folds()
         folds = 0
         for train_index, test_index in kfolds:
-            x_train, x_test = data.p_data[train_index], data.p_data[test_index]
-            y_train, real = data.scores[train_index], data.scores[test_index]
-            algorithm.fit(x_train, y_train)
-            predicted = algorithm.predict(x_test)
+            x_train, x_test = self._data.p_data[train_index], self._data.p_data[test_index]
+            y_train, real = self._data.scores[train_index], self._data.scores[test_index]
+            self.fit(x_train, y_train)
+            predicted = self.predict(x_test)
             self._precision += compute_precision(real, predicted)
             self._recall += compute_recall(real, predicted)
             self._accuracy += compute_accuracy(real, predicted)

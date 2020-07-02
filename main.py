@@ -16,12 +16,12 @@ def main(argv):
         print("Question 1:")
 
         # ----------------- KNN -----------------
-        knn = AlgorithmRunner("KNN")
-        knn.run(data, knn)
+        knn = AlgorithmRunner(data, "KNN")
+        knn.run()
 
         # ----------------- Rocchio -----------------
-        rocchio = AlgorithmRunner("Rocchio")
-        rocchio.run(data, rocchio)
+        rocchio = AlgorithmRunner(data, "Rocchio")
+        rocchio.run()
         print()
 
     if Q2:
@@ -41,12 +41,12 @@ def main(argv):
         # print(f"highest accuracy was: {max_accuracy} with k={best_k}")
 
         # ----------------- KNN -----------------
-        knn = AlgorithmRunnerRace("KNN", 11)
-        knn.run(data2, knn)
+        knn = AlgorithmRunnerRace(data2, "KNN", 11)
+        knn.run()
 
         # ----------------- Rocchio -----------------
-        rocchio = AlgorithmRunnerRace("Rocchio")
-        rocchio.run(data2, rocchio)
+        rocchio = AlgorithmRunnerRace(data2, "Rocchio")
+        rocchio.run()
 
 
 if __name__ == '__main__':

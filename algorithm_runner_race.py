@@ -4,13 +4,14 @@ from computes import *
 
 class AlgorithmRunnerRace:
 
-    def __init__(self, algorithm, k=10):
+    def __init__(self, data, algorithm, k=10):
         """
         Runs the specified algorithm on processed data and calculates accuracy.
         :param algorithm: String represent algorithm to use: 'KNN' or 'Rocchio'
         :param k: Optional - initializes 'KNN' algorithm number of neighbors (default = 10).
         """
         self._name = algorithm
+        self._data = data
         if algorithm == "KNN":
             self.algorithm = neighbors.KNeighborsClassifier(n_neighbors=k, p=1)
         elif algorithm == "Rocchio":
@@ -35,20 +36,20 @@ class AlgorithmRunnerRace:
         """
         return self.algorithm.predict(x_test)
 
-    def run(self, data, algorithm, print_data=True):
+    def run(self, print_data=True):
         """
         Runs the classifier and computes the precision, recall and accuracy.
         :param data: Object of Data class.
         :param algorithm: Object of AlgorithmRunner class.
         :param print_data: Boolean flag that prints the data.
         """
-        kfolds = data.split_to_k_folds()
+        kfolds = self._data.split_to_k_folds()
         folds = 0
         for train_index, test_index in kfolds:
-            x_train, x_test = data.p_data[train_index], data.p_data[test_index]
-            y_train, real = data.scores[train_index], data.scores[test_index]
-            algorithm.fit(x_train, y_train)
-            predicted = algorithm.predict(x_test)
+            x_train, x_test = self._data.p_data[train_index], self._data.p_data[test_index]
+            y_train, real = self._data.scores[train_index], self._data.scores[test_index]
+            self.fit(x_train, y_train)
+            predicted = self.predict(x_test)
             self._accuracy += compute_accuracy(real, predicted)
             folds += 1
         self._accuracy /= folds
