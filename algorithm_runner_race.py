@@ -22,7 +22,7 @@ class AlgorithmRunnerRace:
 
     def fit(self, x_train, y_train):
         """
-        Fits the data by using the built in algorithm fit method.
+        Wrapper method, fits the data by using the built in algorithm fit method.
         :param x_train: Data for training.
         :param y_train: Labels for training.
         """
@@ -30,7 +30,7 @@ class AlgorithmRunnerRace:
 
     def predict(self, x_test):
         """
-        Predicts data labels by using built in algorithm predict method.
+        Wrapper method, predicts data labels by using built in algorithm predict method.
         :param x_test: Data for testing.
         :return: Predicted vector.
         """
