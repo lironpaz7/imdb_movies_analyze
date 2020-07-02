@@ -7,6 +7,7 @@ class AlgorithmRunnerRace:
     def __init__(self, data, algorithm, k=10):
         """
         Runs the specified algorithm on processed data and calculates accuracy.
+        :param data: Data set.
         :param algorithm: String represent algorithm to use: 'KNN' or 'Rocchio'
         :param k: Optional - initializes 'KNN' algorithm number of neighbors (default = 10).
         """
@@ -39,8 +40,6 @@ class AlgorithmRunnerRace:
     def run(self, print_data=True):
         """
         Runs the classifier and computes the precision, recall and accuracy.
-        :param data: Object of Data class.
-        :param algorithm: Object of AlgorithmRunner class.
         :param print_data: Boolean flag that prints the data.
         """
         kfolds = self._data.split_to_k_folds()
